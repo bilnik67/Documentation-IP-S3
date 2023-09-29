@@ -16,7 +16,9 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 include:
-- template: Security/SAST.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+
 
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -44,12 +46,7 @@ lint-test:   # This job also runs in the test stage.
     - echo "Linting code... "
     - dotnet restore
     - dotnet lint
-sast:
-  stage: test  # including the security scan in the test stage
-  script:
-    - echo "Starting SAST..."
-    - Sleep(10)
-  allow_failure: true
+
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
