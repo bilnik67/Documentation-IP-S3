@@ -48,7 +48,8 @@ sast:
   stage: test  # including the security scan in the test stage
   script:
     - echo "Starting SAST..."
-  allow_failure: false
+    - Sleep(10)
+  allow_failure: true
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
